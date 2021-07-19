@@ -127,3 +127,22 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# package directories
+node_modules
+jspm_packages
+
+# testing
+/coverage
+/dist
+/artifact
+
+# Serverless directories
+.serverless
+
+# misc
+.vscode
+.project
+.classpath
+.settings
+.dynamodb
