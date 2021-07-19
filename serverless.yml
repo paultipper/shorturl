@@ -109,6 +109,7 @@ plugins:
   - serverless-python-requirements
 
 custom:
+  tableName: 'shorturl-table-${self:provider.stage}'
   pythonRequirements:
     dockerizePip: true
 
@@ -124,3 +125,23 @@ custom:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+resources:
+  Resources:
+    UrlDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: shortKey
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: shortKey
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName}
+        Tags:
+          - Key: "BACKUP_ENABLED"
+            Value: "true"
